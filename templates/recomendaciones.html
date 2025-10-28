@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Recomendaciones</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fff5e6;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            text-align: center;
+        }
+        h2 {
+            color: #ff6f61;
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+        .restaurant-card {
+            background-color: white;
+            padding: 20px 25px;
+            margin: 15px 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            font-size: 20px;
+        }
+        .rating button {
+            background-color: #eee;
+            border: none;
+            padding: 10px 14px;
+            margin: 2px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.2s;
+        }
+        .rating button.selected {
+            background-color: #ff6f61;
+            color: white;
+        }
+        button:hover {
+            background-color: #ff3b2e;
+            color: white;
+        }
+        a {
+            display: inline-block;
+            margin-top: 25px;
+            color: white;
+            background-color: #ff6f61;
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        a:hover {
+            background-color: #ff3b2e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Recomendaciones para ti</h2>
+        <form method="post">
+            {% for idx in range(restaurantes|length) %}
+                <div class="restaurant-card">
+                    <strong>{{ restaurantes[idx] }}</strong>
+                    <div class="rating">
+                        {% for i in [1,2,3,4,5] %}
+                            <button type="button" onclick="setRating({{ idx }}, {{ i }})" id="r{{ idx }}_{{ i }}">{{ i }}</button>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+            <input type="hidden" name="ratings" id="ratings_input">
+            <br>
+            <button type="submit" style="margin-top:20px;">Enviar valoraciones</button>
+        </form>
+        <a href="/">Volver</a>
+    </div>
+
+    <script>
+        let ratings = {};
+        const restaurantes = {{ restaurantes | tojson }};
+        function setRating(idx, value) {
+            const restaurant = restaurantes[idx];
+            ratings[restaurant] = value;
+
+            // Actualizar botones
+            for (let i=1; i<=5; i++) {
+                const btn = document.getElementById('r' + idx + '_' + i);
+                if(i <= value){
+                    btn.classList.add('selected');
+                } else {
+                    btn.classList.remove('selected');
+                }
+            }
+
+            // Guardar en input hidden
+            document.getElementById('ratings_input').value = JSON.stringify(ratings);
+        }
+    </script>
+</body>
+</html>
