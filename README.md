@@ -1,1 +1,24 @@
-# Restaurante Recomendador\n\nSistema de recomendación interactivo basado en **Filtro Colaborativo**.\n\n## 🚀 Características\n* **Motor:** Similitud de coseno entre vectores de usuarios.\n* **Persistencia:** Almacenamiento en SQLite.\n* **Cold Start:** Sugiere 5 restaurantes aleatorios para usuarios nuevos.\n\n## 🛠️ Tecnologías\n* Backend: Python / Flask\n* Análisis: Pandas / Scikit-Learn\n\n## 📂 Estructura\n├── app.py\n├── requirements.txt\n├── datos/\n│   └── Datos.db\n└── templates/\n    ├── login.html\n    └── recomendaciones.html\n\n## ⚙️ Instalación\n1. `pip install -r requirements.txt`\n2. `python app.py`
+# Restaurante Recomendador
+
+Sistema de recomendacion interactivo basado en Filtro Colaborativo.
+
+## Caracteristicas
+* Motor de recomendacion: Similitud de coseno.
+* Base de datos: SQLite3.
+* Interfaz: Flask + Jinja2.
+
+## Estructura del Proyecto
+```text
+.
+├── app.py
+├── requirements.txt
+├── datos/
+│   └── Datos.db
+└── templates/
+    ├── login.html
+    └── recomendaciones.html
+```
+
+## Instalacion
+1. pip install -r requirements.txt
+2. python app.py
